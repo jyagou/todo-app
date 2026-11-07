@@ -25,37 +25,56 @@ let currentFilter = "all";
 let editingId = null;
 // How the tasks are sorted right now: "due", "newest" or "name"
 let currentSort = "due";
+
 // Saves the current tasks list into the browser's storage.
 // JSON.stringify turns our list into text so it can be stored.
 // SVG icons stored as text so we can drop them into the cards.
 // class="icon" lets CSS size them. stroke="currentColor" makes them use the button's text color.
 const PENCIL_ICON = `<svg class="icon" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>`;
-
 const TRASH_ICON = `<svg class="icon" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>`;
+const CLOCK_ICON = `<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
 
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 // Turns a date string like "2026-11-08T09:00" into friendly text like "Nov 8, 9:00 AM"
+// Turns a date string like "2026-11-08T09:00" into "Today, 9:00 AM", "Tomorrow, 9:00 AM",
+// "Yesterday, 9:00 AM", or "Sat, Nov 8, 9:00 AM" for any other day
 function formatDue(dueString) {
 
-  // If no date was chosen (empty string or missing), show this instead
+  // No date chosen
   if (!dueString) {
     return "No due date";
   }
 
-  // Date is a built-in JavaScript object that understands dates
   const date = new Date(dueString);
 
-  // toLocaleString formats it nicely. The options say which parts to show.
-  return date.toLocaleString("en-US", {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit"
-  });
-} 
+  // Today at midnight. setHours(0,0,0,0) sets hours, minutes, seconds, ms to zero,
+  // so we compare whole DAYS and ignore the time of day.
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // The due date, also at midnight
+  const dueDay = new Date(date);
+  dueDay.setHours(0, 0, 0, 0);
+
+  // Difference in days. Dates subtract into milliseconds, and one day = 86,400,000 ms.
+  // Math.round avoids tiny errors (like daylight saving changes).
+  // 0 = today, 1 = tomorrow, -1 = yesterday
+  const diffDays = Math.round((dueDay - today) / 86400000);
+
+  // Just the time part, like "9:00 AM"
+  const time = date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+
+  if (diffDays === 0) return `Today, ${time}`;
+  if (diffDays === 1) return `Tomorrow, ${time}`;
+  if (diffDays === -1) return `Yesterday, ${time}`;
+
+  // Any other day: "Sat, Nov 29"
+  const day = date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  return `${day}, ${time}`;
+}
 
 // ---------- 3. THE RENDER FUNCTION ----------
 // A function is a reusable block of code, like "def" in Python.
@@ -198,19 +217,21 @@ function render() {
     // The HTML inside the card
         // The HTML inside the card
     li.innerHTML = `
-      <input type="checkbox">
-      <span class="tag">${task.category}</span>
-      <span class="task-text"></span>
-      <span class="due"></span>
-      <button class="edit-btn" title="Edit">${PENCIL_ICON}</button>
-      <button class="delete-btn" title="Delete">${TRASH_ICON}</button>
+        <input type="checkbox">
+        <span class="tag">${task.category}</span>
+        <div class="task-info">
+          <span class="task-text"></span>
+          <div class="due">${CLOCK_ICON}<span class="due-text"></span></div>
+        </div>
+        <button class="edit-btn" title="Edit">${PENCIL_ICON}</button>
+        <button class="delete-btn" title="Delete">${TRASH_ICON}</button>
     `;
 
     // Put the task's text in safely (as plain text, not HTML)
     li.querySelector(".task-text").textContent = task.text;
 
         // Show the due date in friendly form
-    li.querySelector(".due").textContent = formatDue(task.due);
+    li.querySelector(".due-text").textContent = formatDue(task.due);
 
     // --- The checkbox ---
     const checkbox = li.querySelector("input");

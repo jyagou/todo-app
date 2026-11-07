@@ -467,3 +467,183 @@ button, input, select {
 .task-text {
   min-width: 0;
 }
+/* ---------- PLUS ICON INSIDE THE TEXT BOX ---------- */
+
+/* The wrapper takes the space the text box used to take */
+.input-wrap {
+  flex: 1;
+  min-width: 0;
+  /* position: relative lets us place the icon inside this box with "absolute" */
+  position: relative;
+}
+
+/* The input fills the wrapper, with extra room on the left for the icon */
+.input-wrap input {
+  width: 100%;
+  padding-left: 46px;
+}
+
+/* The plus icon: absolutely positioned on the left, vertically centered */
+.input-wrap .icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8fa89a;
+  /* Clicks pass through the icon to the input underneath */
+  pointer-events: none;
+}
+
+/* ---------- SORT DROPDOWN WITH ICON ---------- */
+
+/* margin-left: auto moved here from the select, so the whole thing sits on the right */
+.sort-wrap {
+  margin-left: auto;
+  position: relative;
+}
+
+/* Higher specificity than ".filters select" so these win */
+.filters .sort-wrap select {
+  margin-left: 0;
+  padding-left: 40px;
+}
+
+.sort-wrap .icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #8fa89a;
+  pointer-events: none;
+}
+
+/* ---------- FOOTER NOTE ---------- */
+
+.footer-note {
+  /* Space above, separating it from the last task */
+  margin-top: 30px;
+  text-align: center;
+  color: #8fa89a;
+}
+
+/* The row: line, text, line */
+.footer-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+}
+
+/* The two short lines on each side of the text */
+.footer-text .line {
+  width: 40px;
+  height: 1px;
+  background: #2a4036;
+}
+
+.footer-note > .icon {
+  margin-top: 12px;
+}
+
+/* ---------- SIDEBAR NOTE ---------- */
+
+/* Make the sidebar a column, so the note can be pushed to the bottom */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The layout needs a minimum height, or a short list leaves no room to push the note down */
+.layout {
+  min-height: 620px;
+}
+
+.sidebar-note {
+  /* margin-top: auto = take all the free space above, pushing this to the bottom */
+  margin-top: auto;
+  padding: 20px 15px;
+  color: #8fa89a;
+}
+
+.sidebar-note .icon {
+  width: 36px;
+  height: 36px;
+}
+
+.sidebar-note p {
+  margin-top: 10px;
+  font-family: "Caveat", cursive;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+/* Custom checkbox: a rounded square */
+.task input[type="checkbox"] {
+  /* Turn off the default Google look */
+  appearance: none;
+  -webkit-appearance: none;
+  width: 26px;
+  height: 26px;
+  /* Stop it from being squished by other items in the row */
+  flex-shrink: 0;
+  border: 2px solid #4b6a5b;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  /* grid + place-content centers the checkmark inside */
+  display: grid;
+  place-content: center;
+}
+
+/* When ticked: filled green */
+.task input[type="checkbox"]:checked {
+  background: #7fb08f;
+  border-color: #7fb08f;
+}
+
+/* The checkmark, drawn with a rotated border corner */
+.task input[type="checkbox"]::after {
+  content: "";
+  width: 6px;
+  height: 12px;
+  border: solid #0f1c17;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  margin-top: -2px;
+  /* Hidden until checked */
+  opacity: 0;
+}
+
+.task input[type="checkbox"]:checked::after {
+  opacity: 1;
+}
+/* Holds the task name and the due date, stacked in a column */
+.task-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* The name was "flex: 1" before, which would stretch it vertically in a column, so turn that off */
+.task-info .task-text {
+  flex: none;
+}
+
+/* The due date row: clock icon and text side by side */
+.due {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* A smaller clock than the other icons */
+.due .icon {
+  width: 14px;
+  height: 14px;
+}
