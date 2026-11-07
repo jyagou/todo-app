@@ -1,0 +1,469 @@
+/* "*" means EVERY element. This resets the browser's default spacing so we have full control */
+* {
+  /* margin = space OUTSIDE an element. 0 removes the default */
+  margin: 0;
+  /* padding = space INSIDE an element, between its edge and its content. 0 removes the default */
+  padding: 0;
+  /* Makes width/height include the padding, which makes sizing much more predictable */
+  box-sizing: border-box;
+}
+
+/* Styles the whole page */
+body {
+  /* Dark green page background (the colors are hex codes: #RRGGBB) */
+  background: #0f1c17;
+  /* Text color: a soft off-white */
+  color: #e8efe9;
+  /* The font. If the first isn't available, it uses the next one */
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  /* Space around the card: 40px top/bottom, 20px left/right */
+  padding: 40px 20px;
+}
+
+/* The big card that holds everything (class="app") */
+.app {
+  /* The card is never wider than 1000px */
+  max-width: 1000px;
+  /* "auto" left and right margins centers the card on the page */
+  margin: 0 auto;
+  /* Card background: slightly lighter green than the page */
+  background: #14251f;
+  /* A thin 1px border with a soft green color */
+  border: 1px solid #2a4036;
+  /* Rounded corners */
+  border-radius: 16px;
+  /* Hides anything that sticks out past the rounded corners */
+  overflow: hidden;
+}
+
+/* The top part with the title (class="header") */
+.header {
+  /* Space inside the header so the text isn't touching the edges */
+  padding: 30px;
+  /* A line under the header to separate it from the rest */
+  border-bottom: 1px solid #2a4036;
+}
+
+/* The "Todo List" title: h1 selects every <h1> tag */
+.header h1 {
+   /* The handwritten title font */
+  font-family: "Caveat", cursive;
+  /* Handwriting fonts look small, so go bigger */
+  font-size: 3.5rem;
+  font-weight: 500;
+}
+
+/* The tagline under the title: p selects every <p> inside .header */
+.header p {
+  /* The monospace tagline font */
+  font-family: "Space Mono", monospace;
+  font-size: 0.95rem;
+}
+
+/* The box holding the sidebar and main area (class="layout") */
+.layout {
+  /* flex puts its children SIDE BY SIDE instead of stacked. This is how you build columns */
+  display: flex;
+}
+
+/* The left menu (class="sidebar") */
+.sidebar {
+  /* A fixed width of 240px, so it stays a narrow column */
+  width: 240px;
+  /* A line on its right side to separate it from the main area */
+  border-right: 1px solid #2a4036;
+  /* Space inside the sidebar */
+  padding: 20px 15px;
+}
+
+/* Removes the bullet dots from the sidebar list */
+.sidebar ul {
+  list-style: none;
+}
+
+/* Each category row in the sidebar: "li inside .sidebar" */
+.sidebar li {
+  /* flex again: puts the category name and the number on the same row */
+  display: flex;
+  /* Pushes the name to the far left and the number to the far right */
+  justify-content: space-between;
+  /* Space inside each row, 12px top/bottom and 15px left/right */
+  padding: 12px 15px;
+  /* Rounded corners for each row */
+  border-radius: 8px;
+  /* Space below each row so they don't touch */
+  margin-bottom: 6px;
+  /* The mouse turns into a pointing hand when hovering over it */
+  cursor: pointer;
+}
+
+/* :hover = "when the mouse is over it". Rows change color when you point at them */
+.sidebar li:hover {
+  /* A slightly lighter green background */
+  background: #1f3a2e;
+}
+
+/* The little number badge (<span>) inside each row */
+.sidebar li .count {
+  /* A darker pill behind the number */
+  background: #0f1c17;
+  /* Space inside the pill */
+  padding: 2px 10px;
+  /* A big radius makes it fully round */
+  border-radius: 20px;
+  /* Smaller text */
+  font-size: 0.85rem;
+}
+
+/* The right side that holds the add bar, filters and tasks (class="main") */
+.main {
+  /* flex: 1 means "take up ALL the remaining space" next to the sidebar */
+  flex: 1;
+  /* Space inside the main area */
+  padding: 25px;
+}
+
+/* algbapbgeinrphaongaeknb */
+
+/* ---------- ADD TASK BAR ---------- */
+
+/* The form that holds the input, dropdown and Add button (class="add-bar") */
+.add-bar {
+  /* flex puts the input, dropdown and button in one row */
+  display: flex;
+  /* gap = space BETWEEN the items in the row */
+  gap: 10px;
+  /* Space below the bar so it doesn't touch the filters */
+  margin-bottom: 20px;
+}
+
+/* The text box where you type a task. ".add-bar input" = input inside .add-bar */
+.add-bar input {
+  /* Takes all the leftover space in the row (so the dropdown and button stay small) */
+  flex: 1;
+  /* Space inside the box so the text isn't touching the edges */
+  padding: 14px 16px;
+  /* Dark background, slightly different from the card */
+  background: #0f1c17;
+  /* A thin green border */
+  border: 1px solid #2a4036;
+  /* Rounded corners */
+  border-radius: 10px;
+  /* The color of the text you type */
+  color: #e8efe9;
+  /* Text size */
+  font-size: 1rem;
+}
+
+/* The dropdown. Same look as the input so they match */
+.add-bar select {
+  /* Space inside */
+  padding: 14px;
+  /* Dark background */
+  background: #0f1c17;
+  /* Border */
+  border: 1px solid #2a4036;
+  /* Rounded corners */
+  border-radius: 10px;
+  /* Text color */
+  color: #e8efe9;
+  /* Text size */
+  font-size: 1rem;
+}
+
+/* The green Add button */
+.add-bar button {
+  /* Space inside: 14px top/bottom, 30px left/right */
+  padding: 14px 30px;
+  /* Light green background */
+  background: #7fb08f;
+  /* Dark text so it's readable on the light green */
+  color: #0f1c17;
+  /* Removes the default ugly border */
+  border: none;
+  /* Rounded corners */
+  border-radius: 10px;
+  /* Bold text */
+  font-weight: bold;
+  /* Text size */
+  font-size: 1rem;
+  /* Pointing hand on hover */
+  cursor: pointer;
+}
+
+/* Slightly lighter green when the mouse is over the Add button */
+.add-bar button:hover {
+  background: #93c4a2;
+}
+
+/* ---------- FILTER BUTTONS ---------- */
+
+/* The row holding All / Active / Completed (class="filters") */
+.filters {
+  /* Puts the three buttons in one row */
+  display: flex;
+  /* Space between the buttons */
+  gap: 10px;
+  /* Space below, before the task list */
+  margin-bottom: 20px;
+}
+
+/* Each filter button. ".filters button" = every button inside .filters */
+.filters button {
+  /* Space inside */
+  padding: 10px 22px;
+  /* Transparent background: you see the card color through it */
+  background: transparent;
+  /* Border */
+  border: 1px solid #2a4036;
+  /* A big radius makes it a pill shape */
+  border-radius: 30px;
+  /* Text color */
+  color: #e8efe9;
+  /* Pointing hand on hover */
+  cursor: pointer;
+}
+
+/* Hover effect for the filter buttons */
+.filters button:hover {
+  background: #1f3a2e;
+}
+
+/* ---------- TASK LIST ---------- */
+
+/* Removes the bullet dots from the task list */
+.task-list {
+  list-style: none;
+}
+
+/* Each task card (class="task") */
+.task {
+  /* Puts the checkbox, tag, text, date and buttons in one row */
+  display: flex;
+  /* Vertically centers everything in the row (without this they line up at the top) */
+  align-items: center;
+  /* Space between the items in the row */
+  gap: 14px;
+  /* Space inside the card */
+  padding: 18px;
+  /* Dark card background */
+  background: #0f1c17;
+  /* Border */
+  border: 1px solid #2a4036;
+  /* Rounded corners */
+  border-radius: 12px;
+  /* Space below each task so they don't touch */
+  margin-bottom: 12px;
+}
+
+/* The category pill, like "School" (class="tag") */
+.tag {
+  /* Dark green background */
+  background: #1f3a2e;
+  /* Space inside the pill */
+  padding: 6px 14px;
+  /* Fully rounded */
+  border-radius: 20px;
+  /* Smaller text */
+  font-size: 0.85rem;
+}
+
+/* The task name */
+.task-text {
+  /* Takes all the leftover space, which pushes the date and buttons to the right */
+  flex: 1;
+  /* Slightly larger text */
+  font-size: 1.1rem;
+}
+
+/* The due date text */
+.due {
+  /* Muted gray-green so it's less prominent */
+  color: #8fa89a;
+  /* Smaller text */
+  font-size: 0.9rem;
+}
+
+/* Edit and Delete buttons inside a task. ".task button" = button inside .task */
+.task button {
+  /* Space inside */
+  padding: 8px 14px;
+  /* No background */
+  background: transparent;
+  /* Border */
+  border: 1px solid #2a4036;
+  /* Rounded corners */
+  border-radius: 8px;
+  /* Text color */
+  color: #e8efe9;
+  /* Pointing hand on hover */
+  cursor: pointer;
+}
+
+/* The LAST button in each task is Delete. :last-of-type picks the last button in the row */
+.task button:last-of-type {
+  /* Red text so Delete looks different from Edit */
+  color: #ef6b6b;
+  /* Red border */
+  border-color: #ef6b6b;
+}
+/* When a task card also has the class "done", cross out its text and make it dimmer */
+.task.done .task-text {
+  /* A line through the text */
+  text-decoration: line-through;
+  /* Muted color */
+  color: #6b8577;
+}
+/* The selected sidebar row: lighter green background with a bright green line on the left */
+.sidebar li.active {
+  background: #1f3a2e;
+  border-left: 4px solid #7fb08f;
+}
+
+/* The selected filter button: filled green, like your design */
+.filters button.active {
+  background: #7fb08f;
+  color: #0f1c17;
+  border-color: #7fb08f;
+}
+/* The date picker: .add-bar input[type="datetime-local"] means "an input inside .add-bar whose type is datetime-local" */
+.add-bar input[type="datetime-local"] {
+  /* The text box has flex: 1 (stretches). Reset it so the date picker stays its natural size. */
+  flex: none;
+  /* Makes the built-in calendar popup use dark colors to match your theme */
+  color-scheme: dark;
+}
+
+/* The text box shown while editing a task */
+.task .edit-text {
+  /* Takes the leftover space, like .task-text does */
+  flex: 1;
+  /* Space inside */
+  padding: 8px 12px;
+  /* Matches the dark theme */
+  background: #14251f;
+  border: 1px solid #7fb08f;
+  border-radius: 8px;
+  color: #e8efe9;
+  font-size: 1rem;
+}
+
+/* The date picker shown while editing */
+.task .edit-due {
+  padding: 8px 12px;
+  background: #14251f;
+  border: 1px solid #2a4036;
+  border-radius: 8px;
+  color: #e8efe9;
+  /* Dark calendar popup */
+  color-scheme: dark;
+}
+
+/* Save button: green, like the Add button */
+.task .save-btn {
+  background: #7fb08f;
+  color: #0f1c17;
+  border-color: #7fb08f;
+} 
+
+/* The sort dropdown, styled like the other controls */
+.filters select {
+  /* margin-left: auto pushes it to the far right of the row, like in your design */
+  margin-left: auto;
+  padding: 10px 14px;
+  background: #0f1c17;
+  border: 1px solid #2a4036;
+  border-radius: 10px;
+  color: #e8efe9;
+}
+/* Make buttons, inputs and dropdowns use the page font instead of the browser default */
+button, input, select {
+  font-family: inherit;
+}
+/* Every icon: a fixed size, outline only, drawn in the current text color */
+.icon {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The pencil and trash buttons: no border, just the icon, like your design */
+.task .edit-btn,
+.task .delete-btn {
+  border: none;
+  padding: 6px;
+  /* flex centers the icon inside the button */
+  display: flex;
+  align-items: center;
+}
+
+/* The pencil is muted gray-green, the trash stays red from the earlier rule */
+.task .edit-btn {
+  color: #8fa89a;
+}
+/* Rows now hold an icon, a label and a count */
+.sidebar li {
+  /* Vertically centers the icon, text and count */
+  align-items: center;
+  /* Space between the icon and the text */
+  gap: 12px;
+}
+
+/* The label takes the leftover space, which pushes the count to the far right */
+.sidebar li .label {
+  flex: 1;
+}
+/* Make the sidebar a little wider so labels fit */
+.sidebar {
+  width: 270px;
+}
+
+/* Keep each label on ONE line */
+.sidebar li .label {
+  white-space: nowrap;
+}
+
+/* Stop the icons from being squished when space is tight */
+.sidebar li .icon {
+  flex-shrink: 0;
+}
+
+/* Smaller gap and padding so everything fits comfortably */
+.sidebar li {
+  gap: 10px;
+  padding: 12px;
+}
+/* Make the whole card a bit wider to give everything room */
+.app {
+  max-width: 1150px;
+}
+
+/* IMPORTANT: lets the main area shrink instead of overflowing.
+   Flex items default to "min-width: auto", which means "never get smaller than my content". */
+.main {
+  min-width: 0;
+}
+
+/* Same idea for the text box: allow it to shrink if space is tight */
+.add-bar input {
+  min-width: 0;
+}
+
+/* Keep the date picker at a fixed, sensible width */
+.add-bar input[type="datetime-local"] {
+  width: 210px;
+}
+
+/* If the filter row ever runs out of room, wrap to a second line instead of overflowing */
+.filters {
+  flex-wrap: wrap;
+}
+
+/* Let long task names shrink instead of pushing the buttons out of the card */
+.task-text {
+  min-width: 0;
+}

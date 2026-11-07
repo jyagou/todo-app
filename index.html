@@ -1,0 +1,144 @@
+<!-- Tells the browser "this file is HTML5" (like a file header, always the first line) -->
+<!DOCTYPE html>
+
+<!-- Opens the whole page; everything lives inside <html> ... </html> -->
+<html>
+<!-- HEAD = info ABOUT the page (not shown on the page itself) -->
+ 
+<head>
+  <!-- The text shown on the browser tab -->
+  <title>To-Do List</title>
+<!-- Connects this HTML page to your CSS file. rel="stylesheet" means "this file is for styling"; href is the file's name -->
+<link rel="stylesheet" href="style.css">
+<!-- Loads the fonts from Google Fonts. This needs internet, and the page uses them automatically once loaded. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+
+</head>
+<!-- BODY = everything you actually SEE on the page -->
+<body>
+
+  <!-- <div> is an invisible box used to group things. class="app" is a name tag so CSS/JS can find it later -->
+  <div class="app">
+
+    <!-- HEADER -->
+    <!-- <header> is a box for the top part of the page (title area) -->
+    <header class="header">
+      <!-- <h1> is the biggest heading. Only use one per page -->
+      <h1>Todo List</h1>
+      <!-- <p> is a paragraph of normal text (your tagline) -->
+      <p>Small steps make big progress.</p>
+    <!-- Closing tag: every opening tag needs a closing tag with a / -->
+    </header>
+
+    <!-- A box that holds the sidebar and main area side by side (we'll do the side-by-side with CSS) -->
+    <div class="layout">
+
+      <!-- SIDEBAR -->
+      <!-- <aside> is a box for side content, here your category menu -->
+      <aside class="sidebar">
+        <!-- <ul> = "unordered list", a bullet list. Think of it like a Python list [ ] -->
+        <!-- <ul> -->
+
+          <ul>
+          <!-- data-category is a custom label we attach to the element so JavaScript can read it later -->
+          <!-- <li data-category="All" class="active">All Tasks <span class="count">0</span></li>
+          <li data-category="School">School <span class="count">0</span></li>
+          <li data-category="Health & Fitness">Health & Fitness <span class="count">0</span></li>
+          <li data-category="Personal">Personal <span class="count">0</span></li>
+          <li data-category="Others">Others <span class="count">0</span></li> -->  
+
+          <ul>
+                <!-- ALL TASKS: home icon -->
+                <li data-category="All" class="active">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  <span class="label">All Tasks</span>
+                  <span class="count">0</span>
+                </li>
+
+                <!-- SCHOOL: graduation cap icon -->
+                <li data-category="School">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                  <span class="label">School</span>
+                  <span class="count">0</span>
+                </li>
+
+                <!-- HEALTH & FITNESS: dumbbell icon -->
+                <li data-category="Health & Fitness">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M6.5 6.5v11"/><path d="M17.5 6.5v11"/><path d="M3.5 9v6"/><path d="M20.5 9v6"/><path d="M6.5 12h11"/></svg>
+                  <span class="label">Health & Fitness</span>
+                  <span class="count">0</span>
+                </li>
+
+                <!-- PERSONAL: laptop icon -->
+                <li data-category="Personal">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/></svg>
+                  <span class="label">Personal</span>
+                  <span class="count">0</span>
+                </li>
+
+                <!-- OTHERS: star icon -->
+                <li data-category="Others">
+                  <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <span class="label">Others</span>
+                  <span class="count">0</span>
+                </li>
+              </ul>
+         </li>
+        </ul>
+        <!-- </ul> -->
+      </aside>
+
+      <!-- MAIN AREA -->
+      <!-- <main> is a box for the main content of the page -->
+      <main class="main">
+
+        <!-- Add task bar -->
+        <!-- <form> groups input controls together. A form is what lets pressing Enter submit things. You may remember forms from Flask -->
+        <form class="add-bar">
+          <!-- <input> is a box to type in. type="text" means plain text. placeholder is the gray hint text. No closing tag needed -->
+          <input type="text" class="task-input" placeholder="Add a new task...">
+          <!-- <select> is a dropdown menu -->
+          <select>
+            <!-- <option> is one choice in the dropdown -->
+            <option>School</option>
+            <option>Health & Fitness</option>
+            <option>Personal</option>
+            <option>Others</option>
+          </select>
+          <input type="datetime-local" class="due-input">
+          <!-- <button> is a clickable button. type="submit" means clicking it submits the form -->
+          <button type="submit">Add</button>
+        </form>
+
+        <!-- Filters -->
+        <!-- A box that holds the three filter buttons -->
+        <div class="filters">
+          <!-- Plain buttons. They do nothing yet until we add JavaScript -->
+         <!-- Each button now has a <span class="count"> inside it. JavaScript will fill in the number. -->
+               <button data-filter="all" class="active">All <span class="count">0</span></button>
+              <button data-filter="active">Active <span class="count">0</span></button>
+              <button data-filter="completed">Completed <span class="count">0</span></button>
+                  <!-- The sort dropdown. The value="..." of each option is what JavaScript reads. -->
+          <select class="sort-select">
+            <option value="due">Sort by: Due Date</option>
+            <option value="newest">Sort by: Newest</option>
+            <option value="name">Sort by: Name (A-Z)</option>
+          </select>
+        </div>
+
+        <!-- Task list (one example task for now) -->
+        <!-- Another list <ul>, this one will hold all your tasks -->
+        <ul class="task-list">          
+            
+        </ul>
+
+      </main>
+    </div>
+  </div>
+<!-- Loads your JavaScript file. It goes at the bottom so the page's elements exist before the script runs -->
+<script src="script.js"></script>
+</body>
+</html>
+
