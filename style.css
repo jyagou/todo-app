@@ -13,7 +13,7 @@ body {
   /* Dark green page background (the colors are hex codes: #RRGGBB) */
   background: #0f1c17;
   /* Text color: a soft off-white */
-  color: #e8efe9;
+  color: #969b97;
   /* The font. If the first isn't available, it uses the next one */
   font-family: "Nunito", "Segoe UI", sans-serif;
   /* Space around the card: 40px top/bottom, 20px left/right */
@@ -29,7 +29,7 @@ body {
   /* Card background: slightly lighter green than the page */
   background: #14251f;
   /* A thin 1px border with a soft green color */
-  border: 1px solid #2a4036;
+  border: 1px solid #121d18;
   /* Rounded corners */
   border-radius: 16px;
   /* Hides anything that sticks out past the rounded corners */
@@ -39,7 +39,7 @@ body {
 /* The top part with the title (class="header") */
 .header {
   /* Space inside the header so the text isn't touching the edges */
-  padding: 30px;
+  padding: 40px;
   /* A line under the header to separate it from the rest */
   border-bottom: 1px solid #2a4036;
 }
@@ -106,7 +106,7 @@ body {
 /* The little number badge (<span>) inside each row */
 .sidebar li .count {
   /* A darker pill behind the number */
-  background: #0f1c17;
+  background: #192822;
   /* Space inside the pill */
   padding: 2px 10px;
   /* A big radius makes it fully round */
@@ -646,4 +646,36 @@ button, input, select {
 .due .icon {
   width: 14px;
   height: 14px;
+}
+/* The header becomes the reference box for the art, and clips anything that sticks out */
+.header {
+  position: relative;
+  overflow: hidden;
+}
+
+/* The scene: pinned to the right and bottom edges of the header */
+.header-art {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  /* Smaller box = smaller scene. Keep the ratio of about 2.55 : 1 (width : height) so nothing gets cropped */
+  width: 340px;
+  height: 133px;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 30%);
+  mask-image: linear-gradient(to right, transparent, black 30%);
+  pointer-events: none;
+}
+
+/* Keep the text above the picture */
+.header h1,
+.header p {
+  position: relative;
+  z-index: 1;
+}
+
+/* On narrow screens, dim the art so it doesn't fight with the title */
+@media (max-width: 700px) {
+  .header-art {
+    opacity: 0.75;
+  }
 }
