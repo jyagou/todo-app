@@ -4,7 +4,6 @@ A clean, dark-themed to-do app built with plain HTML, CSS and JavaScript.
 
 **[👉 Live Demo](https://jyagou.github.io/todo-app/)**
 
-![Todo List app](screenshots/desktop.png)
 
 ## Features
 
